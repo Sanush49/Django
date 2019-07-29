@@ -1,0 +1,24 @@
+{%extends "base.html" %}
+
+{% block division %}Home Page{% endblock %}
+
+{% block division_1 %}
+
+{{title}}
+
+{{user}}
+
+{{user.is_authenticated}}
+{% if user.is_authenticated %}
+
+<h1>User only data</h1>
+	{% for a in list %}
+
+	<li>{{a}}</li>
+	
+	{% endfor %}
+
+{%endif%}
+
+
+{% endblock %}
