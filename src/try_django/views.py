@@ -2,10 +2,12 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.template.loader import get_template
 from .forms import ContactForm 
+from blog.models import BlogPost
 
 def home_page(request):
 	my_title="Hello there..."
-	context ={"title":my_title,"list":[1,2,3,4,5]}
+	qs = BlogPost.objects.all()[:5]
+	context ={"title":"Welcome To Try Django", 'blog_list': qs}
 	return render(request,"home.html",context)
 
 def about_page(request):

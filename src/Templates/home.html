@@ -1,24 +1,15 @@
 {%extends "base.html" %}
 
-{% block division %}Home Page{% endblock %}
 
 {% block division_1 %}
 
-{{title}}
+<h1>{{title}}</h1>
 
-{{user}}
 
-{{user.is_authenticated}}
-{% if user.is_authenticated %}
-
-<h1>User only data</h1>
-	{% for a in list %}
-
-	<li>{{a}}</li>
+{% for a in blog_list %}
+	{% include 'blog/list-inline.html' with blog_post=a truncate=True detail=False %}
 	
-	{% endfor %}
-
-{%endif%}
+{% endfor %}
 
 
 {% endblock %}
