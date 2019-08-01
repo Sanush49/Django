@@ -17,8 +17,11 @@ from .forms import BlogPostModelForm
 def blog_post_list_view(request):
 	#list out objects
 	#could be search
-	qs = BlogPost.objects.all()
-	template_name='blog/list.html'
+	qs = BlogPost.objects.all().published()
+	if request.user.is_authenticated:
+		my_qs = BlogPost.objects.all()
+		qs=(qs | my_qs).distinct()
+	template_name = 'blog/list.html'
 	context={"object_list":qs}
 	return render(request, template_name, context)
 
@@ -27,7 +30,7 @@ def blog_post_list_view(request):
 def blog_post_create_view(request):
 	#create objects
 	# ? use a form
-	form = BlogPostModelForm(request.POST or None)
+	form = BlogPostModelForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
 		print(form.cleaned_data)
 		obj = form.save(commit=False)
